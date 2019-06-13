@@ -1,0 +1,179 @@
+## Clarity YAML TextMate Grammar
+##
+## Based off of the Scheme.plist TextMate grammar available at:
+##    https://github.com/textmate/scheme.tmbundle/ 
+##    
+fileTypes:
+- clar
+keyEquivalent: ^~S
+name: Clarity
+patterns:
+- include: '#comment'
+- include: '#sexp'
+- include: '#string'
+- include: '#language-functions'
+- include: '#illegal'
+repository:
+  comment:
+    begin: (^[ \t]+)?(?=;)
+    beginCaptures:
+      '1':
+        name: punctuation.whitespace.comment.leading.clarity
+    end: (?!\G)
+    patterns:
+    - begin: ;
+      beginCaptures:
+        '0':
+          name: punctuation.definition.comment.clarity
+      end: \n
+      name: comment.line.semicolon.clarity
+  define-map:
+    begin: (?<=\()(define-map)\s([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)\s+
+    end: (?=\))
+    captures:
+        '1':
+          name: keyword.control.clarity
+        '2':
+          name: entity.name.function.clarity
+    name: meta.declaration.map.clarity
+    patterns:
+      - include: '#comment'
+      - include: '#sexp'
+      - include: '#illegal'
+  constants:
+    patterns:
+    - match: \'(true|false)
+      name: constant.language.boolean.clarity
+    - match: (?<=[\(\s])((#e|#i)?[0-9]+(\.[0-9]+)?|(#x)[0-9a-fA-F]+|(#o)[0-7]+|(#b)[01]+)(?=[\s;()'",\[\]])
+      name: constant.numeric.clarity
+    - match: \'[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{28,41}
+      name: constant.numeric.clarity
+  illegal:
+    match: '[()\[\]]'
+    name: invalid.illegal.parenthesis.clarity
+  language-functions:
+    patterns:
+    - match: >
+        (?x)
+          (?<=(\s|\()) # preceded by space or (\n
+          ( or|and|begin|if|ok|err|expects!|
+            fetch-entry|get|tuple|
+            let|define-public|define-map|
+            define-read-only|define|let\* )
+          (?=(\s|\())
+      name: keyword.control.clarity
+    - match: >
+        (?x)
+          (?<=(\s|\()) # preceded by space or (
+          ( eq\?|is-none\?|is-ok\?)
+          (?=(\s|\()) # followed by space or (
+      name: support.function.boolean-test.clarity
+    - match: >
+        (?x)
+          (?<=(\s|\()) # preceded by space or (
+          ( set-entry!|delete-entry!|insert-entry!|contract-call! )
+          (?=(\s|\()) # followed by space or (
+      name: support.function.with-side-effects.clarity
+    - match: >
+        (?x)
+          (?<=(\s|\()) # preceded by space or (
+          ( as-contract )
+          (?=(\s|\()) # followed by space or (
+      name: support.function.sender-context.clarity
+    - match: >
+        (?x)
+          (?<=(\s|\()) # preceded by space or (
+          ( >=?|<=?|[*/+-]|mod )
+          (?=(\s|\()) # followed by space or (
+      name: support.function.arithmetic.clarity
+    - match: >
+        (?x)
+          (?<=(\s|\()) # preceded by space or (
+          ( list|map|filter|fold )
+          (?=(\s|\()) # followed by space or (
+      name: support.function.general.clarity
+  sexp:
+    begin: \(
+    beginCaptures:
+      '1':
+        name: punctuation.section.expression.begin.clarity
+    end: \)(\n)?
+    endCaptures:
+      '1':
+        name: punctuation.section.expression.end.clarity
+      '2':
+        name: meta.after-expression.clarity
+    name: meta.expression.clarity
+    patterns:
+    - include: '#comment'
+    - include: '#define-map'
+    - begin: >
+        (?x)
+        (?<=\() # preceded by (
+          (define-public|define|define-read-only)\s+
+          \(    # open parens
+            ([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)
+            ((\s+
+              \( # open parens for parameter/type pair
+              \s*
+              ([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)
+              \s+
+              ([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)
+              \s*
+              \) # close parens for parameter/type pair
+              \s*
+              )*)
+            \s*
+          \)    # close parens
+      captures:
+        '1':
+          name: keyword.control.clarity
+        '2':
+          name: entity.name.function.clarity
+        '4':
+          name: variable.parameter.function.clarity
+      end: (?=\))
+      name: meta.declaration.procedure.clarity
+      patterns:
+      - include: '#comment'
+      - include: '#sexp'
+      - include: '#illegal'
+    - begin: (?<=\()(define)\s([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)\s*.*?
+      captures:
+        '1':
+          name: keyword.control.clarity
+        '2':
+          name: variable.other.clarity
+      end: (?=\))
+      name: meta.declaration.variable.clarity
+      patterns:
+      - include: '#constants'
+      - include: '#comment'
+      - include: '#sexp'
+      - include: '#illegal'
+    - include: '#language-functions'
+    - include: '#string'
+    - include: '#constants'
+    - match: (?<=[\(\s])(#\\)(space|newline|tab)(?=[\s\)])
+      name: constant.character.named.clarity
+    - match: (?<=[\(\s])(#\\)x[0-9A-F]{2,4}(?=[\s\)])
+      name: constant.character.hex-literal.clarity
+    - match: (?<=[\(\s])(#\\).(?=[\s\)])
+      name: constant.character.escape.clarity
+    - include: '#sexp'
+    - include: '#illegal'
+  string:
+    begin: (")
+    beginCaptures:
+      '1':
+        name: punctuation.definition.string.begin.clarity
+    end: (")
+    endCaptures:
+      '1':
+        name: punctuation.definition.string.end.clarity
+    name: string.quoted.double.clarity
+    patterns:
+    - match: \\.
+      name: constant.character.escape.clarity
+scopeName: source.clarity
+uuid: a26370fe-ce63-4d00-a5f7-a00abb11be89
