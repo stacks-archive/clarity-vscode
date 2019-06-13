@@ -2,7 +2,12 @@
     "name": "clarity",
     "displayName": "Clarity",
     "description": "",
-    "version": "0.0.1",
+    "publisher": "blockstack",
+    "version": "0.0.2",
+    "private": true,
+    "repository": "https://github.com/blockstack/clarity-vscode.git",
+    "homepage": "https://github.com/blockstack/clarity-vscode",
+    "bugs": "https://github.com/blockstack/clarity-vscode/issues",
     "engines": {
         "vscode": "^1.35.0"
     },
@@ -32,9 +37,13 @@
         ]
     },
     "scripts": {
-        "build": "js-yaml syntaxes/clarity.yaml > syntaxes/clarity.json"
+        "build": "js-yaml syntaxes/clarity.yaml > syntaxes/clarity.json",
+        "vscode:prepublish": "npm run build",
+        "vsce-package": "vsce package --out ./.package/clarity.vsix",
+        "vsce-publish": "vsce publish"
     },
     "devDependencies": {
-        "js-yaml": "^3.13.1"
+        "js-yaml": "^3.13.1",
+        "vsce": "^1.63.0"
     }
 }
