@@ -58,7 +58,7 @@ repository:
           (?<=(\s|\()) # preceded by space or (\n
           ( or|and|begin|if|ok|err|expects!|
             fetch-entry|get|tuple|
-            let|define-public|define-map|
+            let|define-public|define-map|define-data-var|fetch-var|
             define-read-only|define|let\* )
           (?=(\s|\())
       name: keyword.control.clarity
@@ -71,7 +71,7 @@ repository:
     - match: >
         (?x)
           (?<=(\s|\()) # preceded by space or (
-          ( set-entry!|delete-entry!|insert-entry!|contract-call! )
+          ( set-entry!|delete-entry!|insert-entry!|set-var!|contract-call! )
           (?=(\s|\()) # followed by space or (
       name: support.function.with-side-effects.clarity
     - match: >
