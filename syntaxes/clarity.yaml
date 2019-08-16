@@ -57,9 +57,10 @@ repository:
         (?x)
           (?<=(\s|\()) # preceded by space or (\n
           ( or|and|begin|if|ok|err|expects!|
-            fetch-entry|get|tuple|
-            let|define-public|define-map|define-data-var|fetch-var|
-            define-read-only|define|let\* )
+            map-get|var-get|contract-map-get|get|tuple|nft-get-owner|ft-get-balance|
+            let|define-public|define-private|define-constant|define-map|define-data-var|
+            define-fungible-token|define-non-fungible-token|
+            define-read-only|let\* )
           (?=(\s|\())
       name: keyword.control.clarity
     - match: >
@@ -71,13 +72,15 @@ repository:
     - match: >
         (?x)
           (?<=(\s|\()) # preceded by space or (
-          ( set-entry!|delete-entry!|insert-entry!|set-var!|contract-call! )
+          ( var-set!|map-set!|map-delete!|map-insert!|
+            ft-transfer!|nft-transfer!|nft-mint!|ft-mint!|
+            contract-call! )
           (?=(\s|\()) # followed by space or (
       name: support.function.with-side-effects.clarity
     - match: >
         (?x)
           (?<=(\s|\()) # preceded by space or (
-          ( as-contract )
+          ( as-contract|contract-caller|tx-sender )
           (?=(\s|\()) # followed by space or (
       name: support.function.sender-context.clarity
     - match: >
@@ -110,7 +113,7 @@ repository:
     - begin: >
         (?x)
         (?<=\() # preceded by (
-          (define-public|define|define-read-only)\s+
+          (define-public|define-private|define-constant|define-read-only)\s+
           \(    # open parens
             ([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)
             ((\s+

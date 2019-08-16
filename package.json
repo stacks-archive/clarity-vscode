@@ -3,7 +3,7 @@
     "displayName": "Clarity",
     "description": "",
     "publisher": "blockstack",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "private": true,
     "repository": "https://github.com/blockstack/clarity-vscode.git",
     "homepage": "https://github.com/blockstack/clarity-vscode",
