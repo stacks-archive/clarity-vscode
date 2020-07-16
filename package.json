@@ -1,7 +1,7 @@
 {
     "name": "clarity",
-    "displayName": "Clarity",
-    "description": "",
+    "displayName": "Clarity Language Support",
+    "description": "Auto-complete and syntax highlighting for Blockstack's Clarity smart contracting language",
     "publisher": "blockstack",
     "version": "0.0.5",
     "private": true,
@@ -13,6 +13,22 @@
     },
     "categories": [
         "Programming Languages"
+    ],
+    "keywords": [
+        "Blockstack",
+        "Stacks 2.0",
+        "Smart Contract",
+        "Blockchain",
+        "LISP"
+    ],
+    "galleryBanner": {
+        "color": "#0f0f0f",
+        "theme": "light"
+      },
+    "icon": "images/blockstack-logo.png",
+    "qna": "https://clarity-lang.org/",
+    "activationEvents": [
+        "onLanguage:clarity"
     ],
     "contributes": {
         "languages": [
