@@ -27,9 +27,6 @@
       },
     "icon": "images/blockstack-logo.png",
     "qna": "https://clarity-lang.org/",
-    "activationEvents": [
-        "onLanguage:clarity"
-    ],
     "contributes": {
         "languages": [
             {
