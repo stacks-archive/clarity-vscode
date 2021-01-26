@@ -77,7 +77,7 @@ repository:
             (?<=(\s|\()) # preceded by space or (
             ( var-set|map-set|map-delete|map-insert|
               ft-transfer\?|nft-transfer\?|nft-mint\?|ft-mint\?|nft-get-owner\?|ft-get-balance\?|
-              contract-call\?|stx-burn\?|stx-transfer\?|stx-get-balance)
+              contract-call\?|stx-burn\?|stx-transfer\?|stx-get-balance|use-trait)
             (?=(\s|\()) # followed by space or (
         name: support.function.with-side-effects.clarity
       - match: >
