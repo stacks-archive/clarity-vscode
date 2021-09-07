@@ -1,7 +1,7 @@
 {
     "name": "clarity",
     "displayName": "Clarity Language Support",
-    "description": "Auto-complete and syntax highlighting for Blockstack's Clarity smart contracting language",
+    "description": "Auto-complete and syntax highlighting for the Clarity smart contracting language",
     "publisher": "blockstack",
     "version": "0.0.5",
     "private": true,
